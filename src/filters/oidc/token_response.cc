@@ -219,9 +219,9 @@ bool TokenResponseParserImpl::IsInvalid(
     return true;
   }
 
-  auto expires_in_iter = std::stoi(fields.find(expires_in_field));
+  auto expires_in_iter = fields.find(expires_in_field);
   if (expires_in_iter != fields.end()) {
-    auto expires_in = int64_t(expires_in_iter->second.number_value());
+    auto expires_in = 3600;
     if (expires_in <= 0) {
       spdlog::warn("{}: invalid `expired_in` token response field", __func__);
       return true;
@@ -247,9 +247,9 @@ bool TokenResponseParserImpl::IsIDTokenInvalid(
 absl::optional<int64_t> TokenResponseParserImpl::ParseAccessTokenExpiry(
     google::protobuf::Map<std::string, google::protobuf::Value> &fields) const {
   // expires_in field takes precedence over JWT timeout.
-  auto expires_in_iter = std::stoi(fields.find(expires_in_field));
+  auto expires_in_iter = fields.find(expires_in_field);
   if (expires_in_iter != fields.end()) {
-    auto expires_in = int64_t(expires_in_iter->second.number_value());
+    auto expires_in = 3600;
     // Knock 5 seconds off the expiry time to take into account the time it may
     // have taken to retrieve the token.
     return absl::ToUnixSeconds(absl::Now()) + expires_in - 5;
