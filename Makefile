@@ -10,7 +10,7 @@ VERSION ?= $(shell git describe --tags --long --dirty --always)
 MODE ?= default
 
 BAZEL_FLAGS ?=
-REGISTRY    ?= ghcr.io/istio-ecosystem/authservice
+REGISTRY    ?= ghcr.io/IsharaPannila/authservice
 IMAGE       ?= $(REGISTRY)/authservice:$(VERSION)
 
 # Root dir returns absolute path of current directory. It has a trailing "/".
