@@ -111,8 +111,8 @@ jobs:
         if: matrix.mode == 'clang-fips'
         run: echo "BAZEL_FLAGS=--config=libc++ --define=boringssl=fips" >> $GITHUB_ENV
 
-      - name: Run all tests
-        run: make test
+      # - name: Run all tests
+      #   run: make test
 
       # Make sure we have static binary on Linux
       - name: Require static binary
